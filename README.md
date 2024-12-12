@@ -11,8 +11,7 @@ This a Python script that retrieves and organizes Common Vulnerabilities and Exp
 
 - Fetches CVE data for a given CPE.
 - Sorts CVEs by severity in descending order.
-- Displays CVE details, including ID, score, and severity.
-
+- Displays CVE details, including ID, score, severity and NIST NVD URL.
 
 ## Usage
 
@@ -21,36 +20,38 @@ This a Python script that retrieves and organizes Common Vulnerabilities and Exp
 - Python 3.x
 - Requests library (install using `pip install requests`)
 
+````bash
+usage: cpe2cve.py [-h] -c CPE -k API_KEY [-n NUM_RESULTS]
+
+Get and sort CVEs from a CPE
+
+options:
+  -h, --help            show this help message and exit
+  -c CPE, --cpe CPE     CPE from which to retrieve CVEs
+  -k API_KEY, --api-key API_KEY
+                        API key for NIST NVD API
+  -n NUM_RESULTS, --num-results NUM_RESULTS
+                        Number of CVEs to print (default: 25)
+````
+
 ### Example
 
 ```bash
-python3 cpe2cve.py -c cpe:2.3:a:apache:http_server:2.4.54
+python3 cpe2cve.py -c cpe:2.3:a:apache:http_server:2.4.54 -k 1234567-1234-abcd-efgh-9873210
 ```
 
 Replace the example CPE with your specific CPE for analysis.
 
+Replace the example API key with your personal NIST NVD API key. You can request one [here](https://nvd.nist.gov/developers/request-an-api-key).
+
 ## Sample Output
 
 ```bash
-[1] ID: CVE-2023-25690, Score: 9.8, Severity: CRITICAL
-[2] ID: CVE-2022-36760, Score: 9.0, Severity: CRITICAL
-[3] ID: CVE-2023-31122, Score: 7.5, Severity: HIGH
-[4] ID: CVE-2013-4365, Score: 7.5, Severity: HIGH
-[5] ID: CVE-2023-27522, Score: 7.5, Severity: HIGH
-[6] ID: CVE-2006-20001, Score: 7.5, Severity: HIGH
-[7] ID: CVE-2007-4723, Score: 7.5, Severity: HIGH
-[8] ID: CVE-2011-2688, Score: 7.5, Severity: HIGH
-[9] ID: CVE-2023-45802, Score: 5.9, Severity: MEDIUM
-[10] ID: CVE-2022-37436, Score: 5.3, Severity: MEDIUM
-[11] ID: CVE-2013-2765, Score: 5.0, Severity: MEDIUM
-[12] ID: CVE-2009-2299, Score: 5.0, Severity: MEDIUM
-[13] ID: CVE-2012-4001, Score: 5.0, Severity: MEDIUM
-[14] ID: CVE-2012-3526, Score: 5.0, Severity: MEDIUM
-[15] ID: CVE-2011-1176, Score: 4.3, Severity: MEDIUM
-[16] ID: CVE-2012-4360, Score: 4.3, Severity: MEDIUM
-[17] ID: CVE-2013-0942, Score: 4.3, Severity: MEDIUM
-[18] ID: CVE-2009-0796, Score: 2.6, Severity: LOW
-[19] ID: CVE-2013-0941, Score: 2.1, Severity: LOW
+[1] ID: CVE-2016-1908, Score: 9.8, Severity: CRITICAL (CVSS v3.1) - https://nvd.nist.gov/vuln/detail/CVE-2016-1908
+[2] ID: CVE-2023-38408, Score: 9.8, Severity: CRITICAL (CVSS v3.1) - https://nvd.nist.gov/vuln/detail/CVE-2023-38408
+[3] ID: CVE-2016-10012, Score: 7.8, Severity: HIGH (CVSS v3.0) - https://nvd.nist.gov/vuln/detail/CVE-2016-10012
+[4] ID: CVE-2020-15778, Score: 7.8, Severity: HIGH (CVSS v3.1) - https://nvd.nist.gov/vuln/detail/CVE-2020-15778
+[5] ID: CVE-2016-10708, Score: 7.5, Severity: HIGH (CVSS v3.0) - https://nvd.nist.gov/vuln/detail/CVE-2016-10708
 ```
 
 ## Contributing
