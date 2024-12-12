@@ -12,6 +12,7 @@ This a Python script that retrieves and organizes Common Vulnerabilities and Exp
 - Fetches CVE data for a given CPE.
 - Sorts CVEs by severity in descending order.
 - Displays CVE details, including ID, score, severity and NIST NVD URL.
+- Converts NMAP CPE strings to proper NVD CPE strings.
 
 ## Usage
 
@@ -19,6 +20,7 @@ This a Python script that retrieves and organizes Common Vulnerabilities and Exp
 
 - Python 3.x
 - Requests library (install using `pip install requests`)
+- NIST NVD API key
 
 ````bash
 usage: cpe2cve.py [-h] -c CPE -k API_KEY [-n NUM_RESULTS]
@@ -37,7 +39,11 @@ options:
 ### Example
 
 ```bash
+# search with proper nist nvd cpe string
 python3 cpe2cve.py -c cpe:2.3:a:apache:http_server:2.4.54 -k 1234567-1234-abcd-efgh-9873210
+
+# search with limited nmap nvd cpe string
+python3 cpe2cve.py -c cpe:/a:apache:http_server:2.4.54 -k 1234567-1234-abcd-efgh-9873210
 ```
 
 Replace the example CPE with your specific CPE for analysis.
