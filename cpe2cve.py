@@ -1,15 +1,8 @@
+# Author: LRVT
+
 import argparse
 import requests
 import re
-
-# Function to convert Nmap CPE to NIST CPE format
-def convert_to_nist_cpe(nmap_cpe):
-    components = nmap_cpe.split(":")
-    if len(components) >= 4:
-        vendor, product, version = components[2:5]
-        nist_cpe = f"cpe:2.3:a:{vendor}:{product}:{version}:*:*:*:*:*:*:*"
-        return nist_cpe
-    return nmap_cpe
 
 # Function to retrieve CVE data for a given CPE
 def get_cve_data(cpe, api_key):
@@ -17,7 +10,7 @@ def get_cve_data(cpe, api_key):
     headers = {"apiKey": api_key}
     query_params = {
         "cpeName": cpe,
-        "resultsPerPage": 200  # Always retrieve up to 200 results
+        "resultsPerPage": 250
     }
     
     try:
@@ -62,10 +55,7 @@ def main():
 
     args = parser.parse_args()
 
-    # Convert Nmap CPE to NIST CPE format
-    cpe_formatted = convert_to_nist_cpe(args.cpe)
-
-    cve_data = get_cve_data(cpe_formatted, args.api_key)
+    cve_data = get_cve_data(args.cpe, args.api_key)
 
     # Filter and sort the CVEs by score in descending order
     filtered_cve = [
@@ -80,6 +70,8 @@ def main():
 
     # Limit to the number of results specified by the user
     limited_cve = sorted_cve[:args.num_results]
+
+    print()
 
     # Print the sorted CVEs with links
     for i, cve in enumerate(limited_cve, 1):
